@@ -39,9 +39,9 @@
         <div class="hero">
             <h2>Ajouter une tâche...</h2>
             <div class="container-ajout">
-                <input type="text" id="tache-input" placeholder="Nouvelle tâche...">
-                <button id="ajouter-tache">Ajouter</button>
-                
+                <input type="text" id="tache-input" placeholder="Nouvelle tâche..." style="border: #E31833 solid 1px; background-color: transparent; border-radius: 5px; width: 250px; height: 50px; color: white;">
+                <button id="ajouter-tache" style="background-color: #E31833; border: white solid 1px; width: 70px; height: 40px; border-radius: 10px;">Ajouter</button>
+
             </div>
             <ul id="liste-taches">
                 <!-- Les tâches seront ajoutées ici via JavaScript -->
@@ -70,6 +70,7 @@
                 li.textContent = tache;
                 listeTaches.appendChild(li);
             });
+
         }
 
         // Ajouter une tâche lorsque le bouton "Ajouter" est cliqué
@@ -86,6 +87,35 @@
 
         // Afficher les tâches au chargement de la page
         afficherTaches();
+
+        // Fonction pour afficher la liste de tâches
+function afficherTaches() {
+    listeTaches.innerHTML = ""; // Effacer la liste actuelle
+
+    taches.forEach((tache, index) => {
+        const li = document.createElement("li");
+        li.textContent = tache;
+
+        // Créer un bouton de suppression
+        const supprimerBtn = document.createElement("button");
+        supprimerBtn.textContent = "Supprimer";
+        supprimerBtn.addEventListener("click", () => {
+            // Supprimer la tâche de la liste
+            taches.splice(index, 1);
+            // Mettre à jour le Local Storage
+            localStorage.setItem("taches", JSON.stringify(taches));
+            // Mettre à jour l'affichage
+            afficherTaches();
+        });
+
+        // Ajouter le bouton de suppression à l'élément li
+        li.appendChild(supprimerBtn);
+
+        // Ajouter l'élément li à la liste
+        listeTaches.appendChild(li);
+    });
+}
+
 
     </script>
 

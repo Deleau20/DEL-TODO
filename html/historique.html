@@ -38,9 +38,11 @@
     </header>
     <section class="hero-section">
         <div class="hero">
-            <h2>Ajouter une tâche...</h2>
-            <div class="container-historique">
-            </div>
+            <h2>Liste des tâches...</h2>
+            <!-- Liste des tâches -->
+            <ul id="liste-taches">
+                <!-- Les tâches seront ajoutées ici via JavaScript -->
+            </ul>
         </div>
         <div class="img">
             <img src="../img/todo1.png" alt="image d'accueil" />
@@ -48,39 +50,35 @@
     </section>
 
     <script>
-        // Récupérer la liste de tâches depuis le Local Storage (s'il existe)
-        const taches = JSON.parse(localStorage.getItem("taches")) || [];
-
-        // Récupérer les éléments HTML
-        const tacheInput = document.getElementById("tache-input");
-        const ajouterTacheBtn = document.getElementById("ajouter-tache");
-        const listeTaches = document.getElementById("liste-taches");
-
         // Fonction pour afficher la liste de tâches
-        function afficherTaches() {
-            listeTaches.innerHTML = ""; // Effacer la liste actuelle
+function afficherTaches() {
+    listeTaches.innerHTML = ""; // Effacer la liste actuelle
 
-            taches.forEach((tache, index) => {
-                const li = document.createElement("li");
-                li.textContent = tache;
-                listeTaches.appendChild(li);
-            });
-        }
+    taches.forEach((tache, index) => {
+        const li = document.createElement("li");
+        li.textContent = tache;
 
-        // Ajouter une tâche lorsque le bouton "Ajouter" est cliqué
-        ajouterTacheBtn.addEventListener("click", () => {
-            const nouvelleTache = tacheInput.value.trim();
-
-            if (nouvelleTache) {
-                taches.push(nouvelleTache);
-                localStorage.setItem("taches", JSON.stringify(taches));
-                tacheInput.value = ""; // Effacer le champ de saisie
-                afficherTaches(); // Mettre à jour l'affichage
-            }
+        // Créer un bouton de suppression
+        const supprimerBtn = document.createElement("button");
+        supprimerBtn.textContent = "Supprimer";
+        supprimerBtn.addEventListener("click", () => {
+            // Supprimer la tâche de la liste
+            taches.splice(index, 1);
+            // Mettre à jour le Local Storage
+            localStorage.setItem("taches", JSON.stringify(taches));
+            // Mettre à jour l'affichage
+            afficherTaches();
         });
 
-        // Afficher les tâches au chargement de la page
-        afficherTaches();
+        // Ajouter le bouton de suppression à l'élément li
+        li.appendChild(supprimerBtn);
+
+        // Ajouter l'élément li à la liste
+        listeTaches.appendChild(li);
+    });
+}
+
+
 
     </script>
 
