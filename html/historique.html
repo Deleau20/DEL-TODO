@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma To-Do List</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <h2 class="logo"><a href="#">
+                    <i id="logo" class="ri-water-flash-fill"></i>
+                    <span>DEL-TODO</span>
+                </a></h2>
+            <input type="checkbox" id="menu-toggle" />
+            <label for="menu-toggle" id="hamburger-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </label>
+            <ul class="links">
+                <li><a href="../html/home.html">Accueil</a></li>
+                <li><a href="../html/home.html">À Propos</a></li>
+                <li><a href="../html/tache.html">Tâches</a></li>
+                <li><a href="#" class="active">Historique</a></li>
+                <li><a href=""></a></li>
+                <li>
+                    <i class="ri-user-follow-fill"></i>
+                    <span id="nom-utilisateur" style="color: black; font-weight: bolder;">
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero-section">
+        <div class="hero">
+            <h2>Ajouter une tâche...</h2>
+            <div class="container-historique">
+            </div>
+        </div>
+        <div class="img">
+            <img src="../img/todo1.png" alt="image d'accueil" />
+        </div>
+    </section>
+
+    <script>
+        // Récupérer la liste de tâches depuis le Local Storage (s'il existe)
+        const taches = JSON.parse(localStorage.getItem("taches")) || [];
+
+        // Récupérer les éléments HTML
+        const tacheInput = document.getElementById("tache-input");
+        const ajouterTacheBtn = document.getElementById("ajouter-tache");
+        const listeTaches = document.getElementById("liste-taches");
+
+        // Fonction pour afficher la liste de tâches
+        function afficherTaches() {
+            listeTaches.innerHTML = ""; // Effacer la liste actuelle
+
+            taches.forEach((tache, index) => {
+                const li = document.createElement("li");
+                li.textContent = tache;
+                listeTaches.appendChild(li);
+            });
+        }
+
+        // Ajouter une tâche lorsque le bouton "Ajouter" est cliqué
+        ajouterTacheBtn.addEventListener("click", () => {
+            const nouvelleTache = tacheInput.value.trim();
+
+            if (nouvelleTache) {
+                taches.push(nouvelleTache);
+                localStorage.setItem("taches", JSON.stringify(taches));
+                tacheInput.value = ""; // Effacer le champ de saisie
+                afficherTaches(); // Mettre à jour l'affichage
+            }
+        });
+
+        // Afficher les tâches au chargement de la page
+        afficherTaches();
+
+    </script>
+
+    <script>
+        // Récupérer le nom de l'utilisateur depuis le Local Storage
+        const utilisateur = JSON.parse(localStorage.getItem("utilisateur"));
+
+        // Vérifier si l'utilisateur est connecté
+        if (utilisateur && utilisateur.nom) {
+            // Afficher le nom de l'utilisateur dans l'élément span
+            const nomUtilisateurSpan = document.getElementById("nom-utilisateur");
+            nomUtilisateurSpan.textContent = `${utilisateur.nom}`;
+        }
+    </script>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

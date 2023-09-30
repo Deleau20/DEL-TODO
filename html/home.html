@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma To-Do List</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
@@ -21,14 +21,18 @@
                 </svg>
             </label>
             <ul class="links">
-                <li ><a href="#" class="active">Accueil</a></li>
-                <li><a href="#">À Propos</a></li>
-                <li><a href="./html/login.html">Tâches</a></li>
+                <li><a href="../html/home.html" class="active">Accueil</a></li>
+                <li><a href="../html/home.html">À Propos</a></li>
+                <li><a href="../html/tache.html">Tâches</a></li>
+                <li><a href="../html/historique.html">Historique</a></li>
+                <li><a href=""></a></li>
+                <li>
+                    <i class="ri-user-follow-fill"></i>
+                    <span id="nom-utilisateur" style="color: black; font-weight: bolder;">
+                    </span>
+                </li>
+
             </ul>
-            <div class="buttons">
-                <a href="./html/login.html" class="signin">Se Connecter</a>
-                <a href="./html/signup.html" class="signup">S'Inscrire</a>
-            </div>
         </nav>
     </header>
     <section class="hero-section">
@@ -38,14 +42,25 @@
                 Transformez vos idées en actions. Créez, suivez et gérez vos tâches avec notre application <span style="color: #E31833; font-size: 25px; font-weight: bolder;"> DEL-TODO</span> List simple et efficace.
             </p>
             <div class="buttons">
-                <a href="#" class="join">Commencer Maintenant</a>
-                <a href="#" class="learn">En Savoir Plus</a>
+                <a href="#" class="learn">Ajouter une tâches</a>
             </div>
         </div>
         <div class="img">
-            <img src="./img/todo1.png"  alt="image d'accueil" />
+            <img src="../img/todo1.png"  alt="image d'accueil" />
         </div>
     </section>
+
+    <script>
+        // Récupérer le nom de l'utilisateur depuis le Local Storage
+        const utilisateur = JSON.parse(localStorage.getItem("utilisateur"));
+
+        // Vérifier si l'utilisateur est connecté
+        if (utilisateur && utilisateur.nom) {
+            // Afficher le nom de l'utilisateur dans l'élément span
+            const nomUtilisateurSpan = document.getElementById("nom-utilisateur");
+            nomUtilisateurSpan.textContent = `${utilisateur.nom}`;
+        }
+    </script>
 
     <script src="./js/main.js"></script>
 </body>
